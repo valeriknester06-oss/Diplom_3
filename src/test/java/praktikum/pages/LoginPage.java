@@ -1,5 +1,6 @@
 package praktikum.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,20 +33,24 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    @Step("Авторизация пользователя")
     public void login(String email, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput)).sendKeys(email);
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput)).sendKeys(password);
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }
 
+    @Step("Переход на страницу регистрации")
     public void clickRegisterLink() {
         wait.until(ExpectedConditions.elementToBeClickable(registerLink)).click();
     }
 
+    @Step("Переход на страницу восстановления пароля")
     public void clickRestorePasswordLink() {
         wait.until(ExpectedConditions.elementToBeClickable(restorePasswordLink)).click();
     }
 
+    @Step("Проверка отображения кнопки входа")
     public boolean isLoginButtonVisible() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton)).isDisplayed();
     }

@@ -1,9 +1,11 @@
 package praktikum.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class RegisterPage {
@@ -23,6 +25,7 @@ public class RegisterPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    @Step("Регистрация пользователя")
     public void register(String name, String email, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(nameInput)).sendKeys(name);
         wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput)).sendKeys(email);
@@ -30,10 +33,12 @@ public class RegisterPage {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton)).click();
     }
 
+    @Step("Переход на страницу авторизации")
     public void clickLoginLink() {
         wait.until(ExpectedConditions.elementToBeClickable(loginLink)).click();
     }
 
+    @Step("Проверка отображения ошибки некорректного пароля")
     public boolean isIncorrectPasswordVisible() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(incorrectPasswordText)).isDisplayed();
     }

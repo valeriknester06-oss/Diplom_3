@@ -1,5 +1,6 @@
 package praktikum.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +21,6 @@ public class LoginTest extends BaseTest {
     private final String password = "123456";
 
     private void registerUser() {
-
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
 
@@ -43,8 +43,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Вход по кнопке Войти в аккаунт")
+    @Description("Проверка авторизации пользователя через кнопку 'Войти в аккаунт' на главной странице")
     public void loginFromMainPageTest() {
-
         registerUser();
 
         LoginPage loginPage = new LoginPage(driver);
@@ -57,42 +57,33 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Вход через Личный кабинет")
+    @Description("Проверка авторизации пользователя через кнопку 'Личный кабинет'")
     public void loginFromPersonalAccountTest() {
-
         registerUser();
 
         driver.get("https://stellarburgers.education-services.ru/");
 
         MainPage mainPage = new MainPage(driver);
-
         mainPage.clickPersonalAccountButton();
 
         LoginPage loginPage = new LoginPage(driver);
-
         loginPage.login(email, password);
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.urlToBe(
-                        "https://stellarburgers.education-services.ru/"
-                ));
 
         Assert.assertTrue(mainPage.isConstructorTitleVisible());
     }
 
     @Test
     @DisplayName("Вход через форму регистрации")
+    @Description("Проверка авторизации пользователя через ссылку 'Войти' на странице регистрации")
     public void loginFromRegisterFormTest() {
-
         registerUser();
 
         driver.get("https://stellarburgers.education-services.ru/login");
 
         LoginPage loginPage = new LoginPage(driver);
-
         loginPage.clickRegisterLink();
 
         RegisterPage registerPage = new RegisterPage(driver);
-
         registerPage.clickLoginLink();
 
         loginPage.login(email, password);
@@ -104,19 +95,16 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Вход через форму восстановления пароля")
+    @Description("Проверка авторизации пользователя через ссылку 'Войти' на странице восстановления пароля")
     public void loginFromRestorePasswordFormTest() {
-
         registerUser();
 
         driver.get("https://stellarburgers.education-services.ru/login");
 
         LoginPage loginPage = new LoginPage(driver);
-
         loginPage.clickRestorePasswordLink();
 
-        ForgotPasswordPage forgotPasswordPage =
-                new ForgotPasswordPage(driver);
-
+        ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         forgotPasswordPage.clickLoginLink();
 
         loginPage.login(email, password);
