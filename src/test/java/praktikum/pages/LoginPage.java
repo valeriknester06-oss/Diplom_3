@@ -35,23 +35,47 @@ public class LoginPage {
 
     @Step("Авторизация пользователя")
     public void login(String email, String password) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput)).sendKeys(email);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput)).sendKeys(password);
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput))
+                .sendKeys(email);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput))
+                .sendKeys(password);
+
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton))
+                .click();
     }
 
     @Step("Переход на страницу регистрации")
     public void clickRegisterLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(registerLink)).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(registerLink))
+                .click();
     }
 
     @Step("Переход на страницу восстановления пароля")
     public void clickRestorePasswordLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(restorePasswordLink)).click();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        restorePasswordLink
+                )
+        ).click();
     }
 
     @Step("Проверка отображения кнопки входа")
     public boolean isLoginButtonVisible() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton)).isDisplayed();
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(loginButton)
+        ).isDisplayed();
+    }
+
+    @Step("Ожидание открытия страницы авторизации")
+    public boolean isLoginPageOpened() {
+
+        return wait.until(
+                ExpectedConditions.urlContains("login")
+        );
     }
 }

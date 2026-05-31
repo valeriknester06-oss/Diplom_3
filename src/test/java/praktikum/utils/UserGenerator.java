@@ -6,6 +6,6 @@ public class UserGenerator {
 
     public static String generateEmail() {
         Random random = new Random();
-        return "user" + random.nextInt(10000) + "@yandex.ru";
+        return "user" + random.nextInt(100000) + "@yandex.ru";
     }
 }

@@ -15,13 +15,23 @@ public class MainPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By loginButton = By.xpath("//button[text()='Войти в аккаунт']");
-    private final By personalAccountButton = By.xpath("//p[text()='Личный Кабинет']");
-    private final By constructorTitle = By.xpath("//h1[text()='Соберите бургер']");
+    private final By loginButton =
+            By.xpath("//button[text()='Войти в аккаунт']");
 
-    private final By bunsTab = By.xpath("//span[text()='Булки']");
-    private final By saucesTab = By.xpath("//span[text()='Соусы']");
-    private final By fillingsTab = By.xpath("//span[text()='Начинки']");
+    private final By personalAccountButton =
+            By.xpath("//p[text()='Личный Кабинет']");
+
+    private final By constructorTitle =
+            By.xpath("//h1[text()='Соберите бургер']");
+
+    private final By bunsTab =
+            By.xpath("//span[text()='Булки']");
+
+    private final By saucesTab =
+            By.xpath("//span[text()='Соусы']");
+
+    private final By fillingsTab =
+            By.xpath("//span[text()='Начинки']");
 
     private final By activeBunsTab =
             By.xpath("//div[contains(@class,'current')]//span[text()='Булки']");
@@ -34,13 +44,21 @@ public class MainPage {
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Step("Клик по элементу")
     private void click(By locator) {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+
+        WebElement element = wait.until(
+                ExpectedConditions.elementToBeClickable(locator)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", element);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", element);
     }
 
     @Step("Нажать кнопку 'Войти в аккаунт'")
@@ -65,11 +83,21 @@ public class MainPage {
 
     @Step("Перейти в раздел 'Начинки'")
     public void clickFillingsTab() {
-        click(fillingsTab);
+
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(fillingsTab)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", element);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", element);
     }
 
     @Step("Проверка отображения конструктора")
     public boolean isConstructorTitleVisible() {
+
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(constructorTitle)
         ).isDisplayed();
@@ -77,6 +105,7 @@ public class MainPage {
 
     @Step("Проверка активности вкладки 'Булки'")
     public boolean isBunsTabActive() {
+
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(activeBunsTab)
         ).isDisplayed();
@@ -84,6 +113,7 @@ public class MainPage {
 
     @Step("Проверка активности вкладки 'Соусы'")
     public boolean isSaucesTabActive() {
+
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(activeSaucesTab)
         ).isDisplayed();
@@ -91,6 +121,7 @@ public class MainPage {
 
     @Step("Проверка активности вкладки 'Начинки'")
     public boolean isFillingsTabActive() {
+
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(activeFillingsTab)
         ).isDisplayed();
